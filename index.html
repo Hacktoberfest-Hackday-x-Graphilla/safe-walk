@@ -1,52 +1,570 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>SafeWalk</title>
+    <title>SafeWalk</title>
 
-<link rel="stylesheet" href="style.css">
-```
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f4f6;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            padding: 45px 20px 60px;
+        }
+
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+
+        .shield {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+            font-size: 17px;
+            color: #64748b;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 22px;
+            margin-bottom: 20px;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 24px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+
+        .description {
+            color: #64748b;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+
+        /* =========================
+           CONTACTS
+        ========================= */
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+
+        .contact-row input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1677ed;
+        }
+
+
+        .contact-row input[type="text"],
+        .contact-row input[type="tel"] {
+
+            height: 38px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            padding: 0 12px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        .contact-name {
+            width: 42%;
+        }
+
+
+        .contact-number {
+            width: 58%;
+        }
+
+
+        .add-contact {
+
+            background: #e5e7eb;
+
+            border: none;
+
+            border-radius: 8px;
+
+            padding: 9px 15px;
+
+            cursor: pointer;
+
+            margin-top: 2px;
+        }
+
+
+        /* =========================
+           LOCATION
+        ========================= */
+
+        .location-status {
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            color: #64748b;
+
+            margin: 15px 0;
+        }
+
+
+        .location-button {
+
+            background: #333;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            padding: 12px 18px;
+
+            cursor: pointer;
+        }
+
+
+        #coordinates {
+
+            margin-top: 12px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           ALERT BUTTON
+        ========================= */
+
+        .alert-section {
+
+            text-align: center;
+
+            margin-top: 24px;
+        }
+
+
+        .warning-text {
+
+            color: #64748b;
+
+            font-size: 16px;
+
+            margin-bottom: 11px;
+        }
+
+
+        .alert-button {
+
+            width: 100%;
+
+            height: 85px;
+
+            background: #e32629;
+
+            color: white;
+
+            border: 2px solid #111;
+
+            border-radius: 45px;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow: 0 6px 15px rgba(227,38,41,0.25);
+
+            transition: 0.2s;
+        }
+
+
+        .alert-button:hover {
+
+            background: #c91e21;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           DANGER PAGE
+        ========================= */
+
+        #dangerPage {
+
+            display: none;
+
+            min-height: 100vh;
+
+            background: #f3f4f6;
+
+            padding: 50px 20px;
+        }
+
+
+        .danger-container {
+
+            max-width: 600px;
+
+            margin: auto;
+
+            text-align: center;
+        }
+
+
+        .danger-icon {
+
+            width: 90px;
+            height: 90px;
+
+            background: #e32629;
+
+            border-radius: 50%;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 45px;
+
+            animation: pulse 1.5s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0% {
+                box-shadow: 0 0 0 0 rgba(227,38,41,0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(227,38,41,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(227,38,41,0);
+            }
+        }
+
+
+        .danger-title {
+
+            font-size: 36px;
+
+            font-weight: 700;
+
+            color: #d71920;
+
+            margin-bottom: 10px;
+        }
+
+
+        .danger-subtitle {
+
+            color: #64748b;
+
+            font-size: 17px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           SENT CARDS
+        ========================= */
+
+        .sent-card {
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            margin-bottom: 15px;
+
+            text-align: left;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+
+        .sent-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .sent-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+
+            background: #dcfce7;
+        }
+
+
+        .sent-info h3 {
+
+            font-size: 17px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .sent-info p {
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        .green {
+
+            color: #16a34a;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           CONTACT BOX
+        ========================= */
+
+        .contact-box {
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            margin-top: 15px;
+        }
+
+
+        .contact-box strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* =========================
+           LOCATION LINK
+        ========================= */
+
+        .map-button {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 15px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back-button {
+
+            margin-top: 20px;
+
+            background: #333;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 25px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+        }
+
+
+        @media(max-width:600px) {
+
+            .contact-row {
+                flex-wrap: wrap;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .alert-button {
+                height: 75px;
+                font-size: 20px;
+            }
+
+            .danger-title {
+                font-size: 30px;
+            }
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-```
-<div class="container">
 
-    <!-- LOGO -->
+<!-- =====================================================
+     FIRST PAGE
+===================================================== -->
 
-    <div class="logo">
-        🛡️
-    </div>
+<div id="mainPage">
 
-    <h1>SafeWalk</h1>
-
-    <p class="subtitle">
-        Your personal walking safety assistant
-    </p>
+    <div class="container">
 
 
-    <!-- =========================
-         EMERGENCY CONTACTS
-    ========================== -->
+        <!-- HEADER -->
 
-    <div class="card">
+        <header class="header">
 
-        <h2>👥 Emergency Contacts</h2>
+            <div class="shield">
+                🛡️
+            </div>
 
-        <p class="small-text">
-            Select the people who should receive your alert.
-        </p>
+            <h1>SafeWalk</h1>
 
-        <div id="contacts">
+            <p>
+                Your personal walking safety assistant
+            </p>
 
-            <div class="contact">
+        </header>
+
+
+        <!-- EMERGENCY CONTACTS -->
+
+        <section class="card">
+
+            <div class="card-title">
+
+                <span>👥</span>
+
+                <span>Emergency Contacts</span>
+
+            </div>
+
+
+            <p class="description">
+                Select the people who should receive your alert.
+            </p>
+
+
+            <div class="contact-row">
 
                 <input
                     type="checkbox"
@@ -56,58 +574,557 @@
                 <input
                     type="text"
                     class="contact-name"
-                    value="Mom"
+                    value="My"
                     placeholder="Name"
                 >
 
                 <input
                     type="tel"
                     class="contact-number"
+                    value=""
                     placeholder="Phone number"
                 >
 
             </div>
 
+
+            <div id="contacts"></div>
+
+
+            <button
+                class="add-contact"
+                onclick="addContact()"
+            >
+                + Add Contact
+            </button>
+
+        </section>
+
+
+
+        <!-- LOCATION -->
+
+        <section class="card">
+
+            <div class="card-title">
+
+                <span>📍</span>
+
+                <span>Your Location</span>
+
+            </div>
+
+
+            <div class="location-status">
+
+                <span>☑️</span>
+
+                <span id="locationText">
+                    Location not detected
+                </span>
+
+            </div>
+
+
+            <button
+                class="location-button"
+                onclick="getLocation()"
+            >
+                📍 Get My Location
+            </button>
+
+
+            <p id="coordinates"></p>
+
+        </section>
+
+
+
+        <!-- SEND ALERT -->
+
+        <div class="alert-section">
+
+            <p class="warning-text">
+                Press only when you need help
+            </p>
+
+
+            <button
+                class="alert-button"
+                onclick="sendAlert()"
+            >
+                🚨 &nbsp; SEND ALERT
+            </button>
+
         </div>
 
-        <button
-            class="add-btn"
-            onclick="addContact()"
-        >
-            + Add Contact
-        </button>
-
     </div>
 
+</div>
 
-    <!-- =========================
-         LOCATION
-    ========================== -->
 
-    <div class="card">
 
-        <h2>📍 Your Location</h2>
+<!-- =====================================================
+     DANGER PAGE
+===================================================== -->
 
-        <p id="locationStatus">
-            Location not detected
+<div id="dangerPage">
+
+    <div class="danger-container">
+
+
+        <!-- DANGER ICON -->
+
+        <div class="danger-icon">
+            🚨
+        </div>
+
+
+        <h1 class="danger-title">
+            I'M IN DANGER
+        </h1>
+
+
+        <p class="danger-subtitle">
+            Your emergency alert has been sent.
         </p>
 
+
+
+        <!-- MESSAGE SENT -->
+
+        <div class="sent-card">
+
+            <div class="sent-row">
+
+                <div class="sent-icon">
+                    💬
+                </div>
+
+                <div class="sent-info">
+
+                    <h3>
+                        Emergency message sent
+                    </h3>
+
+                    <p>
+                        <span class="green">✓ Sent successfully</span>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="contact-box">
+
+                <strong>
+                    Alert sent to:
+                </strong>
+
+                <span id="sentContact">
+                    Emergency Contact
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LOCATION SENT -->
+
+        <div class="sent-card">
+
+            <div class="sent-row">
+
+                <div class="sent-icon">
+                    📍
+                </div>
+
+                <div class="sent-info">
+
+                    <h3>
+                        Live location sent
+                    </h3>
+
+                    <p>
+                        <span class="green">
+                            ✓ Location shared successfully
+                        </span>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="contact-box">
+
+                <strong>
+                    Current location
+                </strong>
+
+                <span id="sentLocation">
+                    Getting your location...
+                </span>
+
+
+                <a
+                    id="mapLink"
+                    class="map-button"
+                    href="#"
+                    target="_blank"
+                >
+                    🗺️ View My Location
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div class="sent-card">
+
+            <div class="sent-row">
+
+                <div class="sent-icon">
+                    🛡️
+                </div>
+
+                <div class="sent-info">
+
+                    <h3>
+                        SafeWalk Alert Active
+                    </h3>
+
+                    <p>
+                        Your emergency contact has been notified.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
         <button
-            class="location-btn"
-            onclick="getLocation()"
+            class="back-button"
+            onclick="goBack()"
         >
-            📍 Get My Location
+            ← Back to SafeWalk
         </button>
 
     </div>
 
+</div>
 
-    <!-- =========================
-         ALERT
-    ========================== -->
 
-    <div class="alert-section">
 
-        <p class="warning">
-            Press only when
-```
+<script>
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let latitude = null;
+let longitude = null;
+
+
+
+/* =====================================================
+   ADD CONTACT
+===================================================== */
+
+function addContact() {
+
+    const contacts =
+        document.getElementById("contacts");
+
+
+    const row =
+        document.createElement("div");
+
+
+    row.className = "contact-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="checkbox"
+            checked
+        >
+
+        <input
+            type="text"
+            class="contact-name"
+            placeholder="Name"
+        >
+
+        <input
+            type="tel"
+            class="contact-number"
+            placeholder="Phone number"
+        >
+
+    `;
+
+
+    contacts.appendChild(row);
+}
+
+
+
+/* =====================================================
+   GET LOCATION
+===================================================== */
+
+function getLocation() {
+
+    const locationText =
+        document.getElementById("locationText");
+
+
+    const coordinates =
+        document.getElementById("coordinates");
+
+
+    if (!navigator.geolocation) {
+
+        locationText.textContent =
+            "Location is not supported.";
+
+        return;
+    }
+
+
+    locationText.textContent =
+        "Detecting location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            latitude =
+                position.coords.latitude;
+
+
+            longitude =
+                position.coords.longitude;
+
+
+            locationText.textContent =
+                "Location detected";
+
+
+            coordinates.textContent =
+                "Latitude: " +
+                latitude.toFixed(6) +
+                " | Longitude: " +
+                longitude.toFixed(6);
+
+        },
+
+
+        function(error) {
+
+            locationText.textContent =
+                "Unable to get location.";
+
+        }
+
+    );
+
+}
+
+
+
+/* =====================================================
+   SEND ALERT
+===================================================== */
+
+function sendAlert() {
+
+
+    /* Get selected contact */
+
+    const checkedContacts =
+        document.querySelectorAll(
+            '.contact-row input[type="checkbox"]:checked'
+        );
+
+
+    if (checkedContacts.length === 0) {
+
+        alert(
+            "Please select at least one emergency contact."
+        );
+
+        return;
+    }
+
+
+    /* Get first selected contact */
+
+    const firstContact =
+        checkedContacts[0].parentElement;
+
+
+    const contactName =
+        firstContact
+        .querySelector(".contact-name")
+        .value;
+
+
+    const contactNumber =
+        firstContact
+        .querySelector(".contact-number")
+        .value;
+
+
+    /* Show contact on danger page */
+
+    document.getElementById(
+        "sentContact"
+    ).textContent =
+        contactName +
+        (contactNumber
+            ? " (" + contactNumber + ")"
+            : "");
+
+
+    /* Get location before opening page */
+
+    if (latitude === null) {
+
+        if (navigator.geolocation) {
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position) {
+
+                    latitude =
+                        position.coords.latitude;
+
+                    longitude =
+                        position.coords.longitude;
+
+                    showDangerPage();
+                },
+
+                function() {
+
+                    showDangerPage();
+                }
+
+            );
+
+        } else {
+
+            showDangerPage();
+        }
+
+    } else {
+
+        showDangerPage();
+    }
+
+}
+
+
+
+/* =====================================================
+   SHOW DANGER PAGE
+===================================================== */
+
+function showDangerPage() {
+
+
+    document.getElementById(
+        "mainPage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "dangerPage"
+    ).style.display = "block";
+
+
+    /* Location */
+
+    if (
+        latitude !== null &&
+        longitude !== null
+    ) {
+
+        document.getElementById(
+            "sentLocation"
+        ).textContent =
+
+            latitude.toFixed(6) +
+            ", " +
+            longitude.toFixed(6);
+
+
+        /*
+           Google Maps location
+        */
+
+        const mapURL =
+            "https://www.google.com/maps?q=" +
+            latitude +
+            "," +
+            longitude;
+
+
+        document.getElementById(
+            "mapLink"
+        ).href = mapURL;
+
+    } else {
+
+        document.getElementById(
+            "sentLocation"
+        ).textContent =
+            "Location unavailable";
+
+
+        document.getElementById(
+            "mapLink"
+        ).style.display =
+            "none";
+    }
+
+}
+
+
+
+/* =====================================================
+   GO BACK
+===================================================== */
+
+function goBack() {
+
+    document.getElementById(
+        "dangerPage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "mainPage"
+    ).style.display = "block";
+}
+
+</script>
+
+
+</body>
+</html>

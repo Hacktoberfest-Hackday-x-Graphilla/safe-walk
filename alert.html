@@ -9,11 +9,9 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    content="width=device-width, initial-scale=1.0">
 
 <title>SafeWalk Alert</title>
-
 
 <style>
 
@@ -21,21 +19,13 @@
         box-sizing: border-box;
     }
 
-
     body {
 
         margin: 0;
 
-        font-family:
-            Arial,
-            sans-serif;
+        font-family: Arial, sans-serif;
 
-        background:
-            linear-gradient(
-                135deg,
-                #fff1f1,
-                #ffffff
-            );
+        background: #fff4f4;
 
         min-height: 100vh;
 
@@ -49,139 +39,87 @@
 
     }
 
-
     .alert-container {
 
         width: 100%;
 
-        max-width: 650px;
+        max-width: 600px;
 
         background: white;
 
-        border-radius: 24px;
-
         padding: 35px;
+
+        border-radius: 20px;
 
         text-align: center;
 
         box-shadow:
-            0 15px 40px
+            0 10px 30px
             rgba(0, 0, 0, 0.15);
 
     }
 
-
-    .alert-icon {
+    .icon {
 
         font-size: 70px;
 
-        margin-bottom: 5px;
-
     }
-
 
     h1 {
 
         color: #d32f2f;
 
-        margin:
-            5px 0 10px;
-
-        font-size: 32px;
+        margin-bottom: 10px;
 
     }
-
-
-    .alert-status {
-
-        color: #555;
-
-        font-size: 17px;
-
-        margin-bottom: 30px;
-
-    }
-
-
-    /* MESSAGE */
 
     .message-box {
 
-        background: #fff4f4;
+        background: #fff0f0;
 
-        border-radius: 16px;
+        padding: 20px;
 
-        padding: 22px;
+        border-radius: 15px;
+
+        margin-top: 25px;
 
         text-align: left;
 
-        margin-bottom: 20px;
-
     }
-
-
-    .message-box h2 {
-
-        margin-top: 0;
-
-        color: #d32f2f;
-
-    }
-
 
     #message {
 
         white-space: pre-line;
 
-        line-height: 1.6;
-
-        color: #333;
+        line-height: 1.7;
 
         word-break: break-word;
 
     }
 
-
-    /* LOCATION */
-
     .location-box {
 
-        background: #f2f8ff;
+        background: #f0f7ff;
 
-        border-radius: 16px;
+        padding: 20px;
 
-        padding: 22px;
+        border-radius: 15px;
+
+        margin-top: 20px;
 
         text-align: left;
 
-        margin-bottom: 20px;
-
     }
-
-
-    .location-box h2 {
-
-        margin-top: 0;
-
-        color: #1976d2;
-
-    }
-
 
     #coordinates {
 
         line-height: 1.7;
 
-        color: #444;
-
     }
-
 
     .map-btn {
 
         display: block;
-
-        text-align: center;
 
         background: #1976d2;
 
@@ -193,99 +131,31 @@
 
         border-radius: 10px;
 
+        text-align: center;
+
         margin-top: 15px;
 
         font-weight: bold;
 
     }
 
-
-    .map-btn:hover {
-
-        opacity: 0.9;
-
-    }
-
-
-    /* CONTACTS */
-
-    .contacts-box {
-
-        background: #f7f7f7;
-
-        border-radius: 16px;
-
-        padding: 22px;
-
-        text-align: left;
-
-        margin-bottom: 20px;
-
-    }
-
-
-    .contacts-box h2 {
-
-        margin-top: 0;
-
-    }
-
-
-    .contact {
-
-        padding: 10px 0;
-
-        border-bottom:
-            1px solid #ddd;
-
-    }
-
-
-    .contact:last-child {
-
-        border-bottom: none;
-
-    }
-
-
-    /* TIME */
-
-    .time {
-
-        color: #777;
-
-        font-size: 14px;
-
-        margin-top: 15px;
-
-    }
-
-
-    /* BACK BUTTON */
-
     .back-btn {
+
+        margin-top: 25px;
+
+        padding: 12px 25px;
 
         border: none;
 
-        background: #444;
+        border-radius: 10px;
+
+        background: #555;
 
         color: white;
 
-        padding:
-            13px 25px;
-
-        border-radius: 10px;
-
-        font-size: 16px;
-
         cursor: pointer;
 
-    }
-
-
-    .back-btn:hover {
-
-        opacity: 0.9;
+        font-size: 16px;
 
     }
 
@@ -299,30 +169,25 @@
 ```
 <div class="alert-container">
 
-
-    <div class="alert-icon">
+    <div class="icon">
         🚨
     </div>
-
 
     <h1>
         SAFEWALK ALERT
     </h1>
 
-
-    <p class="alert-status">
-        Your emergency alert has been prepared.
+    <p>
+        Emergency alert created.
     </p>
 
 
-    <!-- =========================
-         MESSAGE
-    ========================== -->
+    <!-- MESSAGE -->
 
     <div class="message-box">
 
         <h2>
-            📱 Emergency Message
+            📱 Message
         </h2>
 
         <p id="message">
@@ -332,182 +197,95 @@
     </div>
 
 
-    <!-- =========================
-         LOCATION
-    ========================== -->
+    <!-- LOCATION -->
 
     <div class="location-box">
 
         <h2>
-            📍 Current Location
+            📍 Present Location
         </h2>
 
         <p id="coordinates">
-            Loading location...
+            Loading...
         </p>
-
 
         <a
             id="mapLink"
             class="map-btn"
             target="_blank"
-            rel="noopener noreferrer"
-        >
-            🗺️ Open Location in Google Maps
+            rel="noopener noreferrer">
+
+            🗺️ Open My Location
+
         </a>
 
     </div>
 
 
-    <!-- =========================
-         CONTACTS
-    ========================== -->
-
-    <div class="contacts-box">
-
-        <h2>
-            👥 Emergency Contacts
-        </h2>
-
-        <div id="contacts">
-        </div>
-
-    </div>
-
-
-    <p
-        class="time"
-        id="time">
-    </p>
-
-
     <button
         class="back-btn"
-        onclick="goBack()"
-    >
-        ← Back to SafeWalk
-    </button>
+        onclick="goBack()">
 
+        ← Back to SafeWalk
+
+    </button>
 
 </div>
 
 
 <script>
 
-    // =====================================
-    // GET SAVED ALERT
-    // =====================================
+    // Get saved information
 
-    const savedData =
+    const message =
         localStorage.getItem(
-            "safeWalkAlert"
+            "safeWalkMessage"
+        );
+
+    const latitude =
+        localStorage.getItem(
+            "safeWalkLatitude"
+        );
+
+    const longitude =
+        localStorage.getItem(
+            "safeWalkLongitude"
+        );
+
+    const mapLink =
+        localStorage.getItem(
+            "safeWalkMapLink"
         );
 
 
-    if (!savedData) {
+    // Show message
 
-        document.getElementById(
-            "message"
-        ).innerText =
-            "No alert information found.";
-
-    } else {
-
-        const data =
-            JSON.parse(savedData);
+    document.getElementById(
+        "message"
+    ).innerText =
+        message || "No message found.";
 
 
-        // =================================
-        // MESSAGE
-        // =================================
+    // Show coordinates
 
-        document.getElementById(
-            "message"
-        ).innerText =
-            data.message;
-
-
-        // =================================
-        // COORDINATES
-        // =================================
-
-        document.getElementById(
-            "coordinates"
-        ).innerText =
-            "Latitude: " +
-            data.latitude +
-            "\n" +
-            "Longitude: " +
-            data.longitude;
+    document.getElementById(
+        "coordinates"
+    ).innerText =
+        "Latitude: " +
+        latitude +
+        "\nLongitude: " +
+        longitude;
 
 
-        // =================================
-        // GOOGLE MAPS
-        // =================================
+    // Set Google Maps link
 
-        document.getElementById(
-            "mapLink"
-        ).href =
-            data.mapLink;
+    document.getElementById(
+        "mapLink"
+    ).href =
+        mapLink;
 
 
-        // =================================
-        // TIME
-        // =================================
-
-        document.getElementById(
-            "time"
-        ).innerText =
-            "Alert created: " +
-            data.time;
-
-
-        // =================================
-        // CONTACTS
-        // =================================
-
-        const contactsDiv =
-            document.getElementById(
-                "contacts"
-            );
-
-
-        data.contacts.forEach(
-            function(contact) {
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                div.className =
-                    "contact";
-
-
-                div.innerText =
-                    "👤 " +
-                    contact.name +
-                    " — " +
-                    (
-                        contact.number ||
-                        "No number provided"
-                    );
-
-
-                contactsDiv.appendChild(
-                    div
-                );
-
-            }
-        );
-
-    }
-
-
-    // =====================================
-    // BACK TO SAFewalk
-    // =====================================
+    // Back button
 
     function goBack() {
 
