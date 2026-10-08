@@ -11,9 +11,11 @@ let userLongitude = null;
 
 function addContact() {
 
-    const contacts = document.getElementById("contacts");
+    const contacts =
+        document.getElementById("contacts");
 
-    const contact = document.createElement("div");
+    const contact =
+        document.createElement("div");
 
     contact.className = "contact";
 
@@ -49,6 +51,7 @@ function getLocation() {
     status.innerText =
         "📍 Getting your location...";
 
+
     if (!navigator.geolocation) {
 
         status.innerText =
@@ -56,6 +59,7 @@ function getLocation() {
 
         return;
     }
+
 
     navigator.geolocation.getCurrentPosition(
 
@@ -67,8 +71,10 @@ function getLocation() {
             userLongitude =
                 position.coords.longitude;
 
+
             status.innerText =
                 "✅ Location detected";
+
 
             console.log(
                 "Latitude:",
@@ -79,14 +85,26 @@ function getLocation() {
                 "Longitude:",
                 userLongitude
             );
+
         },
 
         function(error) {
 
+            console.log(
+                "Location error:",
+                error
+            );
+
+
             status.innerText =
                 "❌ Could not get your location.";
 
-            console.log(error);
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
         }
 
     );
@@ -102,6 +120,7 @@ function startAlert() {
     const selectedContacts =
         getSelectedContacts();
 
+
     if (selectedContacts.length === 0) {
 
         alert(
@@ -112,15 +131,36 @@ function startAlert() {
     }
 
 
+    // Get location before starting countdown
+
+    if (
+        userLatitude === null ||
+        userLongitude === null
+    ) {
+
+        getLocation();
+
+        alert(
+            "Please wait for your location to be detected, then press Send Alert again."
+        );
+
+        return;
+    }
+
+
     countdownValue = 5;
 
-    document
-        .getElementById("countdownBox")
-        .classList.remove("hidden");
 
-    document
-        .getElementById("countdown")
-        .innerText =
+    const countdownBox =
+        document.getElementById("countdownBox");
+
+    const countdown =
+        document.getElementById("countdown");
+
+
+    countdownBox.classList.remove("hidden");
+
+    countdown.innerText =
         countdownValue;
 
 
@@ -129,9 +169,8 @@ function startAlert() {
 
             countdownValue--;
 
-            document
-                .getElementById("countdown")
-                .innerText =
+
+            countdown.innerText =
                 countdownValue;
 
 
@@ -140,6 +179,7 @@ function startAlert() {
                 clearInterval(countdownTimer);
 
                 sendAlert(selectedContacts);
+
             }
 
         }, 1000);
@@ -154,9 +194,11 @@ function cancelAlert() {
 
     clearInterval(countdownTimer);
 
+
     document
         .getElementById("countdownBox")
         .classList.add("hidden");
+
 
     document
         .getElementById("status")
@@ -174,6 +216,7 @@ function getSelectedContacts() {
     const contacts =
         document.querySelectorAll(".contact");
 
+
     const selected = [];
 
 
@@ -184,10 +227,12 @@ function getSelectedContacts() {
                 'input[type="checkbox"]'
             );
 
+
         const name =
             contact.querySelector(
                 ".contact-name"
             ).value;
+
 
         const number =
             contact.querySelector(
@@ -196,13 +241,20 @@ function getSelectedContacts() {
 
 
         if (
+            checkbox &&
             checkbox.checked &&
             number.trim() !== ""
         ) {
 
             selected.push({
-                name: name.trim(),
-                number: number.trim()
+
+                name:
+                    name.trim() ||
+                    "Emergency Contact",
+
+                number:
+                    number.trim()
+
             });
 
         }
@@ -224,9 +276,6 @@ function sendAlert(contacts) {
         .getElementById("countdownBox")
         .classList.add("hidden");
 
-
-    // If location hasn't been obtained,
-    // get it now.
 
     if (
         userLatitude === null ||
@@ -259,12 +308,15 @@ function sendAlert(contacts) {
                 userLongitude =
                     position.coords.longitude;
 
+
                 createSMS(contacts);
+
             },
 
             function(error) {
 
                 console.log(error);
+
 
                 alert(
                     "Location permission is required to send your location."
@@ -277,23 +329,22 @@ function sendAlert(contacts) {
     } else {
 
         createSMS(contacts);
+
     }
 }
 
 
 // ============================
-// SEND SMS THROUGH BACKEND
+// CREATE SMS
 // ============================
 
-async function createSMS(contacts) {
+function createSMS(contacts) {
 
     const status =
         document.getElementById("status");
 
 
-    status.innerText =
-        "📤 Sending emergency alert...";
-
+    // Google Maps location
 
     const mapLink =
         "https://www.google.com/maps?q=" +
@@ -302,60 +353,65 @@ async function createSMS(contacts) {
         userLongitude;
 
 
-    try {
+    // SMS message
 
-        const response =
-            await fetch("/send-alert", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    contacts: contacts,
-
-                    latitude: userLatitude,
-
-                    longitude: userLongitude,
-
-                    mapLink: mapLink
-
-                })
-
-            });
+    const message =
+        "🚨 SAFEWALK EMERGENCY ALERT 🚨\n\n" +
+        "I may need help.\n\n" +
+        "My current location:\n" +
+        mapLink;
 
 
-        const data =
-            await response.json();
+    console.log(
+        "Selected contacts:",
+        contacts
+    );
 
 
-        if (data.success) {
-
-            status.innerText =
-                "✅ Emergency alert sent successfully!";
-
-            console.log(
-                "SMS result:",
-                data
-            );
-
-        } else {
-
-            status.innerText =
-                "❌ " + data.message;
-
-        }
+    console.log(
+        "Message:",
+        message
+    );
 
 
-    } catch (error) {
+    status.innerText =
+        "✅ Alert message prepared.";
 
-        console.error(error);
+
+    // ============================
+    // OPEN SMS APP
+    // ============================
+
+    if (contacts.length === 1) {
+
+        const phone =
+            contacts[0].number;
+
+
+        const smsURL =
+            "sms:" +
+            encodeURIComponent(phone) +
+            "?body=" +
+            encodeURIComponent(message);
+
+
+        window.location.href =
+            smsURL;
+
+
+    } else {
+
+        // Multiple contacts
 
         status.innerText =
-            "❌ Could not connect to the alert server.";
+            "✅ Alert prepared for " +
+            contacts.length +
+            " contacts.";
+
+
+        // Show the message
+
+        alert(message);
 
     }
 }
