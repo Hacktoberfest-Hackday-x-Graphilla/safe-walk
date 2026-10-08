@@ -1,144 +1,113 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SafeWalk</title>
+```
+<title>SafeWalk</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+```
+
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <h1>SafeWalk</h1>
-        <p>Your personal safety companion</p>
-    </header>
+```
+<div class="container">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+        🛡️
+    </div>
+
+    <h1>SafeWalk</h1>
+
+    <p class="subtitle">
+        Your personal walking safety assistant
+    </p>
 
 
-    <!-- MAIN CONTENT -->
-    <main>
+    <!-- =========================
+         EMERGENCY CONTACTS
+    ========================== -->
 
-        <!-- LOCATION SECTION -->
-        <section class="card">
+    <div class="card">
 
-            <h2>📍 Your Location</h2>
+        <h2>👥 Emergency Contacts</h2>
 
-            <p id="locationStatus">
-                Location not detected
-            </p>
+        <p class="small-text">
+            Select the people who should receive your alert.
+        </p>
 
-            <button onclick="getLocation()">
-                Detect My Location
-            </button>
+        <div id="contacts">
 
-        </section>
+            <div class="contact">
 
-
-        <!-- EMERGENCY CONTACTS -->
-        <section class="card">
-
-            <h2>👥 Emergency Contacts</h2>
-
-            <div id="contacts">
-
-                <!-- DEFAULT CONTACT -->
-                <div class="contact">
-
-                    <input
-                        type="checkbox"
-                        checked
-                        aria-label="Select contact"
-                    >
-
-                    <input
-                        type="text"
-                        class="contact-name"
-                        placeholder="Name"
-                    >
-
-                    <input
-                        type="tel"
-                        class="contact-number"
-                        placeholder="+9779812345678"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <button
-                type="button"
-                onclick="addContact()"
-            >
-                + Add Contact
-            </button>
-
-        </section>
-
-
-        <!-- ALERT SECTION -->
-        <section class="card alert-card">
-
-            <h2>🚨 Emergency Alert</h2>
-
-            <p>
-                Press the button below if you need to send
-                your current location to your emergency contact.
-            </p>
-
-
-            <!-- START ALERT -->
-            <button
-                type="button"
-                class="alert-button"
-                onclick="startAlert()"
-            >
-                🚨 Send Emergency Alert
-            </button>
-
-
-            <!-- COUNTDOWN -->
-            <div
-                id="countdownBox"
-                class="hidden"
-            >
-
-                <h3>Alert will be sent in:</h3>
-
-                <div id="countdown">
-                    5
-                </div>
-
-                <button
-                    type="button"
-                    onclick="cancelAlert()"
+                <input
+                    type="checkbox"
+                    checked
                 >
-                    Cancel Alert
-                </button>
+
+                <input
+                    type="text"
+                    class="contact-name"
+                    value="Mom"
+                    placeholder="Name"
+                >
+
+                <input
+                    type="tel"
+                    class="contact-number"
+                    placeholder="Phone number"
+                >
 
             </div>
 
+        </div>
 
-            <!-- STATUS -->
-            <p id="status"></p>
+        <button
+            class="add-btn"
+            onclick="addContact()"
+        >
+            + Add Contact
+        </button>
 
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer>
-        <p>SafeWalk © 2026</p>
-    </footer>
+    </div>
 
 
-    <!-- JAVASCRIPT -->
-    <script src="script.js"></script>
+    <!-- =========================
+         LOCATION
+    ========================== -->
 
-</body>
-</html>
+    <div class="card">
+
+        <h2>📍 Your Location</h2>
+
+        <p id="locationStatus">
+            Location not detected
+        </p>
+
+        <button
+            class="location-btn"
+            onclick="getLocation()"
+        >
+            📍 Get My Location
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         ALERT
+    ========================== -->
+
+    <div class="alert-section">
+
+        <p class="warning">
+            Press only when
+```

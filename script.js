@@ -4,223 +4,271 @@ let countdownValue = 5;
 let userLatitude = null;
 let userLongitude = null;
 
-
-// ============================
+// ========================================
 // ADD CONTACT
-// ============================
+// ========================================
 
 function addContact() {
 
-    const contacts =
-        document.getElementById("contacts");
+```
+const contacts =
+    document.getElementById("contacts");
 
-    const contact =
-        document.createElement("div");
+const contact =
+    document.createElement("div");
 
-    contact.className = "contact";
+contact.className = "contact";
 
-    contact.innerHTML = `
-        <input type="checkbox" checked>
+contact.innerHTML = `
 
-        <input
-            type="text"
-            class="contact-name"
-            placeholder="Name"
-        >
+    <input
+        type="checkbox"
+        checked
+    >
 
-        <input
-            type="tel"
-            class="contact-number"
-            placeholder="+9779812345678"
-        >
-    `;
+    <input
+        type="text"
+        class="contact-name"
+        placeholder="Name"
+    >
 
-    contacts.appendChild(contact);
+    <input
+        type="tel"
+        class="contact-number"
+        placeholder="Phone number"
+    >
+
+`;
+
+contacts.appendChild(contact);
+```
+
 }
 
-
-// ============================
+// ========================================
 // GET LOCATION
-// ============================
+// ========================================
 
 function getLocation() {
 
-    const status =
-        document.getElementById("locationStatus");
+```
+const status =
+    document.getElementById("locationStatus");
+
+
+status.innerText =
+    "📍 Getting your location...";
+
+
+// Check browser support
+
+if (!navigator.geolocation) {
 
     status.innerText =
-        "📍 Getting your location...";
+        "❌ Geolocation is not supported.";
 
-
-    if (!navigator.geolocation) {
-
-        status.innerText =
-            "❌ Your browser does not support location.";
-
-        return;
-    }
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        function(position) {
-
-            userLatitude =
-                position.coords.latitude;
-
-            userLongitude =
-                position.coords.longitude;
-
-
-            status.innerText =
-                "✅ Location detected";
-
-
-            console.log(
-                "Latitude:",
-                userLatitude
-            );
-
-            console.log(
-                "Longitude:",
-                userLongitude
-            );
-
-        },
-
-        function(error) {
-
-            console.log(
-                "Location error:",
-                error
-            );
-
-
-            status.innerText =
-                "❌ Could not get your location.";
-
-        },
-
-        {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        }
-
-    );
+    return;
 }
 
 
-// ============================
+navigator.geolocation.getCurrentPosition(
+
+    function(position) {
+
+        userLatitude =
+            position.coords.latitude;
+
+        userLongitude =
+            position.coords.longitude;
+
+
+        status.innerText =
+            "✅ Location detected";
+
+
+        console.log(
+            "Latitude:",
+            userLatitude
+        );
+
+        console.log(
+            "Longitude:",
+            userLongitude
+        );
+
+    },
+
+
+    function(error) {
+
+        console.log(
+            "Location error:",
+            error
+        );
+
+
+        status.innerText =
+            "❌ Could not get your location.";
+
+    },
+
+
+    {
+        enableHighAccuracy: true,
+
+        timeout: 10000,
+
+        maximumAge: 0
+    }
+
+);
+```
+
+}
+
+// ========================================
 // START ALERT
-// ============================
+// ========================================
 
 function startAlert() {
 
-    const selectedContacts =
-        getSelectedContacts();
+```
+const selectedContacts =
+    getSelectedContacts();
 
 
-    if (selectedContacts.length === 0) {
+// Check contacts
 
-        alert(
-            "Please select at least one emergency contact."
-        );
+if (
+    selectedContacts.length === 0
+) {
 
-        return;
-    }
+    alert(
+        "Please select at least one emergency contact."
+    );
 
-
-    // Get location before starting countdown
-
-    if (
-        userLatitude === null ||
-        userLongitude === null
-    ) {
-
-        getLocation();
-
-        alert(
-            "Please wait for your location to be detected, then press Send Alert again."
-        );
-
-        return;
-    }
-
-
-    countdownValue = 5;
-
-
-    const countdownBox =
-        document.getElementById("countdownBox");
-
-    const countdown =
-        document.getElementById("countdown");
-
-
-    countdownBox.classList.remove("hidden");
-
-    countdown.innerText =
-        countdownValue;
-
-
-    countdownTimer =
-        setInterval(function() {
-
-            countdownValue--;
-
-
-            countdown.innerText =
-                countdownValue;
-
-
-            if (countdownValue <= 0) {
-
-                clearInterval(countdownTimer);
-
-                sendAlert(selectedContacts);
-
-            }
-
-        }, 1000);
+    return;
 }
 
 
-// ============================
+// Check location
+
+if (
+    userLatitude === null ||
+    userLongitude === null
+) {
+
+    alert(
+        "Please get your location first."
+    );
+
+    getLocation();
+
+    return;
+}
+
+
+// Start countdown
+
+countdownValue = 5;
+
+
+const countdownBox =
+    document.getElementById(
+        "countdownBox"
+    );
+
+
+const countdown =
+    document.getElementById(
+        "countdown"
+    );
+
+
+countdownBox.classList.remove(
+    "hidden"
+);
+
+
+countdown.innerText =
+    countdownValue;
+
+
+countdownTimer =
+    setInterval(function() {
+
+        countdownValue--;
+
+
+        countdown.innerText =
+            countdownValue;
+
+
+        if (
+            countdownValue <= 0
+        ) {
+
+            clearInterval(
+                countdownTimer
+            );
+
+
+            sendAlert(
+                selectedContacts
+            );
+
+        }
+
+    }, 1000);
+```
+
+}
+
+// ========================================
 // CANCEL ALERT
-// ============================
+// ========================================
 
 function cancelAlert() {
 
-    clearInterval(countdownTimer);
+```
+clearInterval(
+    countdownTimer
+);
 
 
-    document
-        .getElementById("countdownBox")
-        .classList.add("hidden");
+document
+    .getElementById(
+        "countdownBox"
+    )
+    .classList.add("hidden");
 
 
-    document
-        .getElementById("status")
-        .innerText =
-        "✅ Alert cancelled.";
+document
+    .getElementById("status")
+    .innerText =
+    "✅ Alert cancelled.";
+```
+
 }
 
-
-// ============================
+// ========================================
 // GET SELECTED CONTACTS
-// ============================
+// ========================================
 
 function getSelectedContacts() {
 
-    const contacts =
-        document.querySelectorAll(".contact");
+```
+const contacts =
+    document.querySelectorAll(
+        ".contact"
+    );
 
 
-    const selected = [];
+const selected = [];
 
 
-    contacts.forEach(function(contact) {
+contacts.forEach(
+    function(contact) {
 
         const checkbox =
             contact.querySelector(
@@ -242,8 +290,7 @@ function getSelectedContacts() {
 
         if (
             checkbox &&
-            checkbox.checked &&
-            number.trim() !== ""
+            checkbox.checked
         ) {
 
             selected.push({
@@ -259,159 +306,84 @@ function getSelectedContacts() {
 
         }
 
-    });
+    }
+);
 
 
-    return selected;
+return selected;
+```
+
 }
 
-
-// ============================
+// ========================================
 // SEND ALERT
-// ============================
+// ========================================
 
 function sendAlert(contacts) {
 
-    document
-        .getElementById("countdownBox")
-        .classList.add("hidden");
+```
+document
+    .getElementById(
+        "countdownBox"
+    )
+    .classList.add("hidden");
 
 
-    if (
-        userLatitude === null ||
-        userLongitude === null
-    ) {
+// ====================================
+// CREATE GOOGLE MAP LINK
+// ====================================
 
-        document
-            .getElementById("status")
-            .innerText =
-            "📍 Getting your location...";
-
-
-        if (!navigator.geolocation) {
-
-            alert(
-                "Your browser does not support location."
-            );
-
-            return;
-        }
+const mapLink =
+    "https://www.google.com/maps?q=" +
+    userLatitude +
+    "," +
+    userLongitude;
 
 
-        navigator.geolocation.getCurrentPosition(
+// ====================================
+// CREATE EMERGENCY MESSAGE
+// ====================================
 
-            function(position) {
-
-                userLatitude =
-                    position.coords.latitude;
-
-                userLongitude =
-                    position.coords.longitude;
-
-
-                createSMS(contacts);
-
-            },
-
-            function(error) {
-
-                console.log(error);
+const message =
+    "🚨 SAFEWALK EMERGENCY ALERT 🚨\n\n" +
+    "I may need help.\n\n" +
+    "My current location:\n" +
+    mapLink;
 
 
-                alert(
-                    "Location permission is required to send your location."
-                );
+// ====================================
+// SAVE DATA
+// ====================================
 
-            }
+const alertData = {
 
-        );
+    message: message,
 
-    } else {
+    latitude: userLatitude,
 
-        createSMS(contacts);
+    longitude: userLongitude,
 
-    }
-}
+    mapLink: mapLink,
 
+    contacts: contacts,
 
-// ============================
-// CREATE SMS
-// ============================
+    time: new Date().toLocaleString()
 
-function createSMS(contacts) {
-
-    const status =
-        document.getElementById("status");
+};
 
 
-    // Google Maps location
-
-    const mapLink =
-        "https://www.google.com/maps?q=" +
-        userLatitude +
-        "," +
-        userLongitude;
+localStorage.setItem(
+    "safeWalkAlert",
+    JSON.stringify(alertData)
+);
 
 
-    // SMS message
+// ====================================
+// OPEN NEW ALERT PAGE
+// ====================================
 
-    const message =
-        "🚨 SAFEWALK EMERGENCY ALERT 🚨\n\n" +
-        "I may need help.\n\n" +
-        "My current location:\n" +
-        mapLink;
+window.location.href =
+    "alert.html";
+```
 
-
-    console.log(
-        "Selected contacts:",
-        contacts
-    );
-
-
-    console.log(
-        "Message:",
-        message
-    );
-
-
-    status.innerText =
-        "✅ Alert message prepared.";
-
-
-    // ============================
-    // OPEN SMS APP
-    // ============================
-
-    if (contacts.length === 1) {
-
-        const phone =
-            contacts[0].number;
-
-
-        const smsURL =
-            "sms:" +
-            encodeURIComponent(phone) +
-            "?body=" +
-            encodeURIComponent(message);
-
-
-        window.location.href =
-            smsURL;
-
-
-    } else {
-
-        // Multiple contacts
-
-        status.innerText =
-            "✅ Alert prepared for " +
-            contacts.length +
-            " contacts.";
-
-
-        // Show the message
-
-        alert(message);
-
-    }
 }

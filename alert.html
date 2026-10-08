@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>SafeWalk Alert</title>
+
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    body {
+
+        margin: 0;
+
+        font-family:
+            Arial,
+            sans-serif;
+
+        background:
+            linear-gradient(
+                135deg,
+                #fff1f1,
+                #ffffff
+            );
+
+        min-height: 100vh;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        padding: 20px;
+
+    }
+
+
+    .alert-container {
+
+        width: 100%;
+
+        max-width: 650px;
+
+        background: white;
+
+        border-radius: 24px;
+
+        padding: 35px;
+
+        text-align: center;
+
+        box-shadow:
+            0 15px 40px
+            rgba(0, 0, 0, 0.15);
+
+    }
+
+
+    .alert-icon {
+
+        font-size: 70px;
+
+        margin-bottom: 5px;
+
+    }
+
+
+    h1 {
+
+        color: #d32f2f;
+
+        margin:
+            5px 0 10px;
+
+        font-size: 32px;
+
+    }
+
+
+    .alert-status {
+
+        color: #555;
+
+        font-size: 17px;
+
+        margin-bottom: 30px;
+
+    }
+
+
+    /* MESSAGE */
+
+    .message-box {
+
+        background: #fff4f4;
+
+        border-radius: 16px;
+
+        padding: 22px;
+
+        text-align: left;
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .message-box h2 {
+
+        margin-top: 0;
+
+        color: #d32f2f;
+
+    }
+
+
+    #message {
+
+        white-space: pre-line;
+
+        line-height: 1.6;
+
+        color: #333;
+
+        word-break: break-word;
+
+    }
+
+
+    /* LOCATION */
+
+    .location-box {
+
+        background: #f2f8ff;
+
+        border-radius: 16px;
+
+        padding: 22px;
+
+        text-align: left;
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .location-box h2 {
+
+        margin-top: 0;
+
+        color: #1976d2;
+
+    }
+
+
+    #coordinates {
+
+        line-height: 1.7;
+
+        color: #444;
+
+    }
+
+
+    .map-btn {
+
+        display: block;
+
+        text-align: center;
+
+        background: #1976d2;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 14px;
+
+        border-radius: 10px;
+
+        margin-top: 15px;
+
+        font-weight: bold;
+
+    }
+
+
+    .map-btn:hover {
+
+        opacity: 0.9;
+
+    }
+
+
+    /* CONTACTS */
+
+    .contacts-box {
+
+        background: #f7f7f7;
+
+        border-radius: 16px;
+
+        padding: 22px;
+
+        text-align: left;
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .contacts-box h2 {
+
+        margin-top: 0;
+
+    }
+
+
+    .contact {
+
+        padding: 10px 0;
+
+        border-bottom:
+            1px solid #ddd;
+
+    }
+
+
+    .contact:last-child {
+
+        border-bottom: none;
+
+    }
+
+
+    /* TIME */
+
+    .time {
+
+        color: #777;
+
+        font-size: 14px;
+
+        margin-top: 15px;
+
+    }
+
+
+    /* BACK BUTTON */
+
+    .back-btn {
+
+        border: none;
+
+        background: #444;
+
+        color: white;
+
+        padding:
+            13px 25px;
+
+        border-radius: 10px;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+    }
+
+
+    .back-btn:hover {
+
+        opacity: 0.9;
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="alert-container">
+
+
+    <div class="alert-icon">
+        🚨
+    </div>
+
+
+    <h1>
+        SAFEWALK ALERT
+    </h1>
+
+
+    <p class="alert-status">
+        Your emergency alert has been prepared.
+    </p>
+
+
+    <!-- =========================
+         MESSAGE
+    ========================== -->
+
+    <div class="message-box">
+
+        <h2>
+            📱 Emergency Message
+        </h2>
+
+        <p id="message">
+            Loading...
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         LOCATION
+    ========================== -->
+
+    <div class="location-box">
+
+        <h2>
+            📍 Current Location
+        </h2>
+
+        <p id="coordinates">
+            Loading location...
+        </p>
+
+
+        <a
+            id="mapLink"
+            class="map-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            🗺️ Open Location in Google Maps
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         CONTACTS
+    ========================== -->
+
+    <div class="contacts-box">
+
+        <h2>
+            👥 Emergency Contacts
+        </h2>
+
+        <div id="contacts">
+        </div>
+
+    </div>
+
+
+    <p
+        class="time"
+        id="time">
+    </p>
+
+
+    <button
+        class="back-btn"
+        onclick="goBack()"
+    >
+        ← Back to SafeWalk
+    </button>
+
+
+</div>
+
+
+<script>
+
+    // =====================================
+    // GET SAVED ALERT
+    // =====================================
+
+    const savedData =
+        localStorage.getItem(
+            "safeWalkAlert"
+        );
+
+
+    if (!savedData) {
+
+        document.getElementById(
+            "message"
+        ).innerText =
+            "No alert information found.";
+
+    } else {
+
+        const data =
+            JSON.parse(savedData);
+
+
+        // =================================
+        // MESSAGE
+        // =================================
+
+        document.getElementById(
+            "message"
+        ).innerText =
+            data.message;
+
+
+        // =================================
+        // COORDINATES
+        // =================================
+
+        document.getElementById(
+            "coordinates"
+        ).innerText =
+            "Latitude: " +
+            data.latitude +
+            "\n" +
+            "Longitude: " +
+            data.longitude;
+
+
+        // =================================
+        // GOOGLE MAPS
+        // =================================
+
+        document.getElementById(
+            "mapLink"
+        ).href =
+            data.mapLink;
+
+
+        // =================================
+        // TIME
+        // =================================
+
+        document.getElementById(
+            "time"
+        ).innerText =
+            "Alert created: " +
+            data.time;
+
+
+        // =================================
+        // CONTACTS
+        // =================================
+
+        const contactsDiv =
+            document.getElementById(
+                "contacts"
+            );
+
+
+        data.contacts.forEach(
+            function(contact) {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "contact";
+
+
+                div.innerText =
+                    "👤 " +
+                    contact.name +
+                    " — " +
+                    (
+                        contact.number ||
+                        "No number provided"
+                    );
+
+
+                contactsDiv.appendChild(
+                    div
+                );
+
+            }
+        );
+
+    }
+
+
+    // =====================================
+    // BACK TO SAFewalk
+    // =====================================
+
+    function goBack() {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+</script>
+```
+
+</body>
+
+</html>
