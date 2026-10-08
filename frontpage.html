@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SafeWalk - Emergency Safety</title>
+
+    <link rel="stylesheet" href="frontpage.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            🛡️ SafeWalk
+        </div>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Help</a>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+            <h1>Your Safety, One Tap Away</h1>
+
+            <p>
+                Save your trusted contacts and reach them quickly
+                whenever you are in danger.
+            </p>
+        </section>
+
+
+        <!-- PARENT CONTACT -->
+
+        <section class="contact-card">
+
+            <h2>👨‍👩‍👧 Parent / Guardian</h2>
+
+            <label for="parentName">Name</label>
+            <input
+                type="text"
+                id="parentName"
+                placeholder="Enter parent/guardian name"
+            >
+
+            <label for="parentPhone">Phone Number</label>
+            <input
+                type="tel"
+                id="parentPhone"
+                placeholder="Enter phone number"
+            >
+
+        </section>
+
+
+        <!-- EMERGENCY CONTACT -->
+
+        <section class="contact-card">
+
+            <h2>🚔 Police / Emergency</h2>
+
+            <label for="emergencyName">
+                Emergency Service
+            </label>
+
+            <input
+                type="text"
+                id="emergencyName"
+                placeholder="e.g. Police"
+            >
+
+            <label for="emergencyPhone">
+                Emergency Number
+            </label>
+
+            <input
+                type="tel"
+                id="emergencyPhone"
+                placeholder="Enter emergency number"
+            >
+
+        </section>
+
+
+        <button id="saveBtn" class="save-btn">
+            💾 Save Emergency Contacts
+        </button>
+
+
+        <section class="danger-section">
+
+            <h2>Are you in danger?</h2>
+
+            <p>
+                Press the button below to activate SafeWalk's
+                emergency mode.
+            </p>
+
+            <button id="dangerBtn" class="danger-btn">
+                🚨 ENTER DANGER MODE
+            </button>
+
+        </section>
+
+
+        <!-- DANGER MODE -->
+
+        <section id="dangerMode" class="danger-mode hidden">
+
+            <h2>🚨 DANGER MODE ACTIVE</h2>
+
+            <p id="locationStatus">
+                Getting your location...
+            </p>
+
+            <div id="emergencyActions"></div>
+
+            <button id="cancelBtn">
+                Cancel Danger Mode
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>SafeWalk © 2026 | Stay Safe. Stay Connected.</p>
+    </footer>
+
+
+    <script src="frontpage.js"></script>
+
+</body>
+</html>
