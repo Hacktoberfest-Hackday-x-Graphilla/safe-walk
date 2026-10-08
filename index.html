@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SafeWalk</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            🛡️
+        </div>
+
+        <h1>SafeWalk</h1>
+
+        <p class="subtitle">
+            Your personal walking safety assistant
+        </p>
+
+
+        <!-- Emergency Contacts -->
+
+        <div class="card">
+
+            <h2>👥 Emergency Contacts</h2>
+
+            <p class="small-text">
+                Select the people who should receive your alert.
+            </p>
+
+            <div id="contacts">
+
+                <div class="contact">
+                    <input type="checkbox" checked>
+                    <input
+                        type="text"
+                        class="contact-name"
+                        value="Mom"
+                        placeholder="Name"
+                    >
+                    <input
+                        type="tel"
+                        class="contact-number"
+                        value="+977XXXXXXXXXX"
+                        placeholder="Phone number"
+                    >
+                </div>
+
+            </div>
+
+            <button class="add-btn" onclick="addContact()">
+                + Add Contact
+            </button>
+
+        </div>
+
+
+        <!-- Location -->
+
+        <div class="card">
+
+            <h2>📍 Your Location</h2>
+
+            <p id="locationStatus">
+                Location not detected
+            </p>
+
+            <button class="location-btn" onclick="getLocation()">
+                📍 Get My Location
+            </button>
+
+        </div>
+
+
+        <!-- Alert -->
+
+        <div class="alert-section">
+
+            <p class="warning">
+                Press only when you need help.
+            </p>
+
+            <button
+                id="alertButton"
+                class="alert-btn"
+                onclick="startAlert()"
+            >
+                🚨 SEND ALERT
+            </button>
+
+        </div>
+
+
+        <!-- Countdown -->
+
+        <div id="countdownBox" class="countdown-box hidden">
+
+            <h2>Alert will be sent in</h2>
+
+            <div id="countdown">
+                5
+            </div>
+
+            <button
+                class="cancel-btn"
+                onclick="cancelAlert()"
+            >
+                CANCEL
+            </button>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div id="status" class="status">
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
