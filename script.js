@@ -29,7 +29,7 @@ function addContact() {
         <input
             type="tel"
             class="contact-number"
-            placeholder="Phone number"
+            placeholder="+9779812345678"
         >
     `;
 
@@ -43,9 +43,11 @@ function addContact() {
 
 function getLocation() {
 
-    const status = document.getElementById("locationStatus");
+    const status =
+        document.getElementById("locationStatus");
 
-    status.innerText = "📍 Getting your location...";
+    status.innerText =
+        "📍 Getting your location...";
 
     if (!navigator.geolocation) {
 
@@ -54,7 +56,6 @@ function getLocation() {
 
         return;
     }
-
 
     navigator.geolocation.getCurrentPosition(
 
@@ -66,10 +67,8 @@ function getLocation() {
             userLongitude =
                 position.coords.longitude;
 
-
             status.innerText =
                 "✅ Location detected";
-
 
             console.log(
                 "Latitude:",
@@ -81,7 +80,6 @@ function getLocation() {
                 userLongitude
             );
         },
-
 
         function(error) {
 
@@ -104,7 +102,6 @@ function startAlert() {
     const selectedContacts =
         getSelectedContacts();
 
-
     if (selectedContacts.length === 0) {
 
         alert(
@@ -121,10 +118,10 @@ function startAlert() {
         .getElementById("countdownBox")
         .classList.remove("hidden");
 
-
     document
         .getElementById("countdown")
-        .innerText = countdownValue;
+        .innerText =
+        countdownValue;
 
 
     countdownTimer =
@@ -161,7 +158,6 @@ function cancelAlert() {
         .getElementById("countdownBox")
         .classList.add("hidden");
 
-
     document
         .getElementById("status")
         .innerText =
@@ -177,7 +173,6 @@ function getSelectedContacts() {
 
     const contacts =
         document.querySelectorAll(".contact");
-
 
     const selected = [];
 
@@ -206,8 +201,8 @@ function getSelectedContacts() {
         ) {
 
             selected.push({
-                name: name,
-                number: number
+                name: name.trim(),
+                number: number.trim()
             });
 
         }
@@ -231,12 +226,28 @@ function sendAlert(contacts) {
 
 
     // If location hasn't been obtained,
-    // try to get it now.
+    // get it now.
 
     if (
         userLatitude === null ||
         userLongitude === null
     ) {
+
+        document
+            .getElementById("status")
+            .innerText =
+            "📍 Getting your location...";
+
+
+        if (!navigator.geolocation) {
+
+            alert(
+                "Your browser does not support location."
+            );
+
+            return;
+        }
+
 
         navigator.geolocation.getCurrentPosition(
 
@@ -251,7 +262,9 @@ function sendAlert(contacts) {
                 createSMS(contacts);
             },
 
-            function() {
+            function(error) {
+
+                console.log(error);
 
                 alert(
                     "Location permission is required to send your location."
@@ -269,10 +282,18 @@ function sendAlert(contacts) {
 
 
 // ============================
-// CREATE SMS
+// SEND SMS THROUGH BACKEND
 // ============================
 
-function createSMS(contacts) {
+async function createSMS(contacts) {
+
+    const status =
+        document.getElementById("status");
+
+
+    status.innerText =
+        "📤 Sending emergency alert...";
+
 
     const mapLink =
         "https://www.google.com/maps?q=" +
@@ -281,5 +302,60 @@ function createSMS(contacts) {
         userLongitude;
 
 
-    const message =
-        "🚨 SAFEWALK EMERGENCY ALERT 🚨\n\n"}
+    try {
+
+        const response =
+            await fetch("/send-alert", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    contacts: contacts,
+
+                    latitude: userLatitude,
+
+                    longitude: userLongitude,
+
+                    mapLink: mapLink
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            status.innerText =
+                "✅ Emergency alert sent successfully!";
+
+            console.log(
+                "SMS result:",
+                data
+            );
+
+        } else {
+
+            status.innerText =
+                "❌ " + data.message;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.innerText =
+            "❌ Could not connect to the alert server.";
+
+    }
+}
